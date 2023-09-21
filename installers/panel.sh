@@ -311,15 +311,7 @@ dep_install() {
       git cronie"
       
     [ "$CONFIGURE_LETSENCRYPT" == true ] && install_packages "certbot python3-certbot-nginx"
-    sudo apt install wget -y
-    wget https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb
-
-    sudo dpkg -i mysql-apt-config_0.8.12-1_all.deb
-
-    apt_update
-
-    sudo apt install -f mysql-client=5.7* mysql-community-server=5.7* mysql-server=5.7*
-
+    
     # Allow nginx
     selinux_allow
 
