@@ -292,20 +292,11 @@ dep_install() {
 
     # Install dependencies
     install_packages "php8.1 php8.1-{cli,common,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip} \
+      mariadb-common mariadb-server mariadb-client \
       nginx \
       redis-server \
       zip unzip tar \
       git cron"
-
-    [ "$CONFIGURE_LETSENCRYPT" == true ] && install_packages "certbot python3-certbot-nginx"
-    sudo apt install wget -y
-    wget https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb
-
-    sudo dpkg -i mysql-apt-config_0.8.12-1_all.deb
-
-    apt_update
-
-    sudo apt install -f mysql-client=5.7* mysql-community-server=5.7* mysql-server=5.7*
 
     ;;
   rocky | almalinux)
@@ -313,11 +304,12 @@ dep_install() {
 
     # Install dependencies
     install_packages "php php-{common,fpm,cli,json,mysqlnd,mcrypt,gd,mbstring,pdo,zip,bcmath,dom,opcache,posix} \
+      mariadb mariadb-server \
       nginx \
       redis \
       zip unzip tar \
       git cronie"
-
+      
     [ "$CONFIGURE_LETSENCRYPT" == true ] && install_packages "certbot python3-certbot-nginx"
     sudo apt install wget -y
     wget https://dev.mysql.com/get/mysql-apt-config_0.8.12-1_all.deb
