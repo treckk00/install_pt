@@ -334,8 +334,6 @@ mysql_install() {
 
   sudo apt install -f mysql-client=5.7* mysql-community-server=5.7* mysql-server=5.7*
 
-  sudo mysql_secure_installation
-
   sudo systemctl start mysql
   sudo systemctl enable mysql
 
@@ -432,18 +430,18 @@ perform_install() {
 
   output "$PANEL_DL_URL"
   mysql_install
-  #dep_install
-  #install_composer
-  #ptdl_dl
-  #install_composer_deps
-  #create_db_user "$MYSQL_USER" "$MYSQL_PASSWORD"
-  #create_db "$MYSQL_DB" "$MYSQL_USER"
-  #configure
-  #set_folder_permissions
-  #insert_cronjob
-  #install_pteroq
-  #configure_nginx
-  #[ "$CONFIGURE_LETSENCRYPT" == true ] && letsencrypt
+  dep_install
+  install_composer
+  ptdl_dl
+  install_composer_deps
+  create_db_user "$MYSQL_USER" "$MYSQL_PASSWORD"
+  create_db "$MYSQL_DB" "$MYSQL_USER"
+  configure
+  set_folder_permissions
+  insert_cronjob
+  install_pteroq
+  configure_nginx
+  [ "$CONFIGURE_LETSENCRYPT" == true ] && letsencrypt
 
   return 0
 }
