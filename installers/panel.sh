@@ -229,7 +229,6 @@ enable_services() {
   esac
   systemctl enable nginx
   systemctl enable mysql
-  systemctl start mysql
 }
 
 selinux_allow() {
@@ -292,7 +291,6 @@ dep_install() {
 
     # Install dependencies
     install_packages "php8.1 php8.1-{cli,common,gd,mysql,mbstring,bcmath,xml,fpm,curl,zip} \
-      mariadb-common mariadb-server mariadb-client \
       nginx \
       redis-server \
       zip unzip tar \
@@ -304,7 +302,6 @@ dep_install() {
 
     # Install dependencies
     install_packages "php php-{common,fpm,cli,json,mysqlnd,mcrypt,gd,mbstring,pdo,zip,bcmath,dom,opcache,posix} \
-      mariadb mariadb-server \
       nginx \
       redis \
       zip unzip tar \
@@ -326,6 +323,22 @@ dep_install() {
 }
 
 # --------------- Other functions -------------- #
+
+mysql_install() {
+  wget https://dev.mysql.com/get/mysql-apt-config_0.8.16-1_all.deb
+
+  sudo dpkg -i mysql-apt-config_0.8.16-1_all.deb
+
+  sudo apt update
+
+  sudo apt install -f mysql-client=5.7* mysql-community-server=5.7* mysql-server=5.7*
+
+  sudo mysql_secure_installation
+
+  sudo systemctl start mysql
+  sudo systemctl enable mysql
+}
+
 
 firewall_ports() {
   output "Opening ports: 22 (SSH), 80 (HTTP) and 443 (HTTPS)"
@@ -457,6 +470,7 @@ EOF
 perform_install() {
   output "Starting installation.. this might take a while!"
   dep_install
+  mysql_install
   install_composer
   ptdl_dl
   install_composer_deps
