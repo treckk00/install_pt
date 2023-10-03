@@ -429,18 +429,20 @@ configure_nginx() {
 
 perform_install() {
   output "Starting installation.. this might take a while!"
-  dep_install
-  install_composer
-  ptdl_dl
-  install_composer_deps
-  create_db_user "$MYSQL_USER" "$MYSQL_PASSWORD"
-  create_db "$MYSQL_DB" "$MYSQL_USER"
-  configure
-  set_folder_permissions
-  insert_cronjob
-  install_pteroq
-  configure_nginx
-  [ "$CONFIGURE_LETSENCRYPT" == true ] && letsencrypt
+
+  output "$PANEL_DL_URL"
+  #dep_install
+  #install_composer
+  #ptdl_dl
+  #install_composer_deps
+  #create_db_user "$MYSQL_USER" "$MYSQL_PASSWORD"
+  #create_db "$MYSQL_DB" "$MYSQL_USER"
+  #configure
+  #set_folder_permissions
+  #insert_cronjob
+  #install_pteroq
+  #configure_nginx
+  #[ "$CONFIGURE_LETSENCRYPT" == true ] && letsencrypt
 
   return 0
 }
