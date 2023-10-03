@@ -431,6 +431,7 @@ perform_install() {
   output "Starting installation.. this might take a while!"
 
   output "$PANEL_DL_URL"
+  mysql_install
   #dep_install
   #install_composer
   #ptdl_dl
