@@ -430,7 +430,6 @@ configure_nginx() {
 perform_install() {
   output "Starting installation.. this might take a while!"
   dep_install
-  mysql_install
   install_composer
   ptdl_dl
   install_composer_deps
